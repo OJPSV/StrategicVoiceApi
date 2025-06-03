@@ -2,9 +2,18 @@ from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse
 from faster_whisper import WhisperModel
 import tempfile
+from fastapi.middleware.cors import CORSMiddleware
+# Enable CORS for all origins
 
 app = FastAPI()
-
+# 👇 Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Use "*" to allow all origins, or restrict to specific ones
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 # Load model once (adjust to your system's power)
 model = WhisperModel("base")
 
