@@ -4,8 +4,13 @@ from faster_whisper import WhisperModel
 import tempfile
 from fastapi.middleware.cors import CORSMiddleware
 # Enable CORS for all origins
-
+import uvicorn
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", port=10000, reload=True)
 app = FastAPI()
+@app.get("/")
+async def root():
+    return {"message": "Welcome to the Whisper Transcription API!"}
 # 👇 Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
